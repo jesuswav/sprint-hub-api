@@ -3,7 +3,7 @@ const express = require('express')
 const router = express.Router()
 
 // model
-const User = require('../models/user') // Asegúrate de importar tu modelo
+const User = require('../models/users') // Asegúrate de importar tu modelo
 
 // Ruta para obtener todos los usuarios
 router.get('/users', async (req, res) => {

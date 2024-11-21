@@ -4,7 +4,7 @@ const dotenv = require('dotenv')
 const connectDB = require('./config/db')
 
 // models
-const User = require('./models/user')
+const User = require('./models/users')
 
 // routes
 const userRoutes = require('./routes/userRoutes')
