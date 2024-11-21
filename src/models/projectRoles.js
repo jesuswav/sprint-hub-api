@@ -15,6 +15,6 @@ const ProjectRoleSchema = new mongoose.Schema({
   },
 })
 
-const ProjectRoles = mongoose.model('User', ProjectRoleSchema)
+const ProjectRoles = mongoose.model('proyect_roles', ProjectRoleSchema)
 
 module.exports = ProjectRoles

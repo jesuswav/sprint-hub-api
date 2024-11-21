@@ -19,6 +19,6 @@ const ProjectSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now },
 })
 
-const Project = mongoose.model('User', ProjectSchema)
+const Project = mongoose.model('proyects', ProjectSchema)
 
 module.exports = Project

@@ -13,6 +13,6 @@ const LogSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now }, // Hora de la acción
 })
 
-const Log = mongoose.model('User', LogSchema)
+const Log = mongoose.model('Logs', LogSchema)
 
 module.exports = Log

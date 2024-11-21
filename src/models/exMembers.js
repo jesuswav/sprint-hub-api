@@ -12,6 +12,6 @@ const ExMemberSchema = new mongoose.Schema({
   removedAt: { type: Date, default: Date.now }, // Fecha de eliminación
 })
 
-const ExMember = mongoose.model('User', ExMemberSchema)
+const ExMember = mongoose.model('ExMembers', ExMemberSchema)
 
 module.exports = ExMember

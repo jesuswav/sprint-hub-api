@@ -7,7 +7,6 @@ const ExMember = require('../models/exMembers') // Asegúrate de importar tu mod
 
 // Ruta para obtener todos los usuarios
 router.get('/ex-members', async (req, res) => {
-  console.log('Hola')
   try {
     const exMembers = await ExMember.find()
     res.json(exMembers) // Devuelve la lista de usuarios como JSON

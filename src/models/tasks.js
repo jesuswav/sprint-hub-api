@@ -20,6 +20,6 @@ const TaskSchema = new mongoose.Schema({
   dueDate: { type: Date },
 })
 
-const Task = mongoose.model('User', TaskSchema)
+const Task = mongoose.model('tasks', TaskSchema)
 
 module.exports = Task

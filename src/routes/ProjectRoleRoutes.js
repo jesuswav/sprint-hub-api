@@ -7,7 +7,6 @@ const ProjectRole = require('../models/projectRoles') // Asegúrate de importar 
 
 // Ruta para obtener todos los usuarios
 router.get('/project-roles', async (req, res) => {
-  console.log('Hola')
   try {
     const projectRoles = await ProjectRole.find()
     res.json(projectRoles) // Devuelve la lista de usuarios como JSON
