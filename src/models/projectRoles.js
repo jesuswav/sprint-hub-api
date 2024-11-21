@@ -1,4 +1,4 @@
-// models/User.js
+// models/projectRoles.js
 const mongoose = require('mongoose')
 
 const ProjectRoleSchema = new mongoose.Schema({

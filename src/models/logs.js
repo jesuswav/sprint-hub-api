@@ -1,4 +1,4 @@
-// models/User.js
+// models/logs.js
 const mongoose = require('mongoose')
 
 const LogSchema = new mongoose.Schema({

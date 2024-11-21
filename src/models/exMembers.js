@@ -1,4 +1,4 @@
-// models/User.js
+// models/exMembers.js
 const mongoose = require('mongoose')
 
 const ExMemberSchema = new mongoose.Schema({

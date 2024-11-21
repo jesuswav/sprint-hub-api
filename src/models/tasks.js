@@ -1,4 +1,4 @@
-// models/User.js
+// models/tasks.js
 const mongoose = require('mongoose')
 
 const TaskSchema = new mongoose.Schema({
