@@ -114,4 +114,48 @@ router.delete('/tasks/:id', async (req, res) => {
   }
 })
 
+// Actualizar una tarea existente
+router.put('/complete-task/:id', async (req, res) => {
+  const { id } = req.params // ID de la tarea desde los parámetros de la URL
+  const { name, description, status, assignedTo, dueDate } = req.body // Datos para actualizar
+
+  // Lista de valores aceptados para el campo status
+  const validStatuses = ['pending', 'in-progress', 'completed']
+
+  try {
+    // Verificar que la tarea existe
+    const task = await Task.findById(id)
+    if (!task) {
+      return res.status(404).json({ error: 'La tarea no existe.' })
+    }
+
+    // Actualizar los campos permitidos
+    if (name) task.name = name
+    if (description) task.description = description
+    if (status) {
+      // Validar que el status sea válido
+      if (!validStatuses.includes(status)) {
+        return res.status(400).json({
+          error: `El valor de status no es válido. Debe ser uno de: ${validStatuses.join(
+            ', '
+          )}.`,
+        })
+      }
+      task.status = status
+    }
+    if (assignedTo) task.assignedTo = assignedTo
+    if (dueDate) task.dueDate = dueDate
+
+    // Guardar la tarea actualizada
+    const updatedTask = await task.save()
+
+    res
+      .status(200)
+      .json({ message: 'Tarea actualizada correctamente.', task: updatedTask })
+  } catch (error) {
+    console.error('Error al actualizar la tarea:', error)
+    res.status(500).json({ error: 'Ocurrió un error al actualizar la tarea.' })
+  }
+})
+
 module.exports = router

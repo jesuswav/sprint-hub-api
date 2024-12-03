@@ -4,6 +4,8 @@ const router = express.Router()
 
 // model
 const ProjectRole = require('../models/projectRoles') // Asegúrate de importar tu modelo
+const Project = require('../models/projects')
+const User = require('../models/users')
 
 // Ruta para obtener todos los usuarios
 router.get('/project-roles', async (req, res) => {
@@ -49,12 +51,10 @@ router.post('/project-roles', async (req, res) => {
     const newProjectRole = new ProjectRole({ project, user, role })
     await newProjectRole.save()
 
-    res
-      .status(201)
-      .json({
-        message: 'Rol de proyecto creado exitosamente.',
-        projectRole: newProjectRole,
-      })
+    res.status(201).json({
+      message: 'Rol de proyecto creado exitosamente.',
+      projectRole: newProjectRole,
+    })
   } catch (error) {
     console.error('Error al crear rol de proyecto:', error)
     res.status(500).json({ message: 'Error al crear rol de proyecto.' })
@@ -65,15 +65,15 @@ router.post('/project-roles', async (req, res) => {
 router.put('/project-roles/:id', async (req, res) => {
   try {
     const { id } = req.params
-    const updateData = req.body
+    console.log(id)
+    const updateData = req.body.updateData
+    console.log(updateData)
 
-    const updatedProjectRole = await ProjectRole.findByIdAndUpdate(
-      id,
-      updateData,
+    const updatedProjectRole = await ProjectRole.findOneAndUpdate(
+      { _id: id },
+      { $set: { role: updateData } },
       { new: true }
     )
-      .populate('project')
-      .populate('user')
 
     if (!updatedProjectRole) {
       return res.status(404).json({ message: 'Rol de proyecto no encontrado.' })

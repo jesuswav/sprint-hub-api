@@ -4,6 +4,7 @@ const router = express.Router()
 
 // model
 const User = require('../models/users') // Asegúrate de importar tu modelo
+const Project = require('../models/projects')
 
 // Ruta para obtener todos los usuarios
 router.get('/users', async (req, res) => {
@@ -110,6 +111,40 @@ router.delete('/users/:email', async (req, res) => {
   } catch (error) {
     console.error('Error al eliminar usuario:', error)
     res.status(500).json({ message: 'Error al eliminar usuario.' })
+  }
+})
+
+// eliminar un usuario de un proyecto
+// Endpoint para eliminar un usuario
+router.delete('/project-users/:id', async (req, res) => {
+  const userId = req.params.id
+
+  try {
+    // Verificar si el usuario existe
+    const user = await User.findById(userId)
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado.' })
+    }
+
+    // Eliminar referencias del usuario en la colección de proyectos
+    await Project.updateMany(
+      { $or: [{ owners: userId }, { members: userId }] },
+      {
+        $pull: {
+          owners: userId,
+          members: userId,
+        },
+      }
+    )
+
+    // Eliminar el usuario de la colección 'Users'
+    await User.findByIdAndDelete(userId)
+
+    // Responder al cliente
+    res.status(200).json({ message: 'Usuario eliminado correctamente.' })
+  } catch (error) {
+    console.error('Error al eliminar el usuario:', error)
+    res.status(500).json({ message: 'Error al eliminar el usuario.' })
   }
 })
 
